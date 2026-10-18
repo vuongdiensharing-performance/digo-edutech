@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact DIGO</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-lang="vi">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="index.html" aria-label="DIGO home">
+          <span class="brand-mark">D</span>
+          <span class="brand-text">DIGO</span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="academy.html">Academy</a>
+          <a href="growth.html">Growth</a>
+          <a href="infra.html">Infra &amp; Trust</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="nav-tools">
+          <div class="lang-switcher" aria-label="Language switcher">
+            <button class="lang-btn active" data-lang="vi">VI</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <a class="button button-primary" href="contact.html">Contact DIGO</a>
+        </div>
+        <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero section-shell">
+        <div class="container narrow">
+          <p class="section-kicker">Contact</p>
+          <h1>Let’s find the right next step.</h1>
+          <p>Share your context and we’ll route you to the right conversation for growth, learning, or technical infrastructure.</p>
+        </div>
+      </section>
+
+      <section class="section-shell">
+        <div class="container" style="max-width: 820px;">
+          <form class="evidence-panel" style="display: grid; gap: 18px;">
+            <div>
+              <label for="name">Name</label><br />
+              <input id="name" type="text" style="width: 100%; margin-top: 8px; border-radius: 12px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); color: #fff;" />
+            </div>
+            <div>
+              <label for="email">Email</label><br />
+              <input id="email" type="email" style="width: 100%; margin-top: 8px; border-radius: 12px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); color: #fff;" />
+            </div>
+            <div>
+              <label for="area">Area of interest</label><br />
+              <select id="area" style="width: 100%; margin-top: 8px; border-radius: 12px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); color: #fff;">
+                <option>Business &amp; Growth</option>
+                <option>Learning &amp; Academy</option>
+                <option>Infrastructure &amp; Technical</option>
+              </select>
+            </div>
+            <div>
+              <label for="message">Brief description</label><br />
+              <textarea id="message" rows="5" style="width: 100%; margin-top: 8px; border-radius: 12px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); color: #fff; resize: vertical;"></textarea>
+            </div>
+            <button type="submit" class="button button-primary">Submit</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-bar">
+        <span>© 2026 DIGO EduTech</span>
+        <div>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
