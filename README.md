@@ -1,4 +1,3 @@
-# digo-edutech
 # DIGO EDUTECH
 # MASTER WEBSITE UI/UX DESIGN BRIEF
 ### Coca-Cola-Inspired Brand Experience | Figma Design Specification
