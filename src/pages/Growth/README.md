@@ -1,4 +1,4 @@
-# 📄 BẢN MẪU README: MODULE DIGO GROWTH & INFRA
+# 📄 MODULE DIGO GROWTH & INFRA
 
 ## • Tên dự án (Project Title)
 
