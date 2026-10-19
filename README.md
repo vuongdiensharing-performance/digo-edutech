@@ -1,32 +1,26 @@
-# DIGO EduTech design prototype
+# DIGO EduTech Web Application (React + TypeScript + Vite)
 
-This workspace contains a responsive bilingual static prototype inspired by the DIGO EduTech brand brief and website strategy.
+A modern, responsive, bilingual React application built with TypeScript and Vite for **DIGO EduTech** ("Measure Ruthlessly. Build What You Teach. Scale Monopolies."), rewritten from the original static prototype.
 
-## Included pages
+## Core Features
 
-- `index.html` — homepage
-- `ecosystem.html` — ecosystem overview
-- `academy.html` — academy landing
-- `growth.html` — growth landing
-- `infra.html` — infrastructure landing
-- `insights.html` — editorial insights listing
-- `contact.html` — contact form entry point
+- **Single Page Navigation & Route Sync**: Instant routing across Home, Ecosystem, Academy, Growth, Infra & Trust, Insights, Contact, and Legal (Privacy & Terms).
+- **Full Bilingual Support (VI / EN)**: Interactive language toggle persisted in `localStorage` with instant UI translation across all pages, cards, and metadata.
+- **Brand Aesthetic & Typography**: Strict fidelity to DIGO EduTech design constitution with Be Vietnam Pro, Plus Jakarta Sans, and JetBrains Mono typography, custom color variables (`--brand-red: #d91b24`, `--brand-gold: #c88a32`), and dark-panel accents.
+- **Dynamic Signal Panel**: Interactive signal graph representing the *Signal → Measure → Decide → Improve* loop.
+- **Interactive Contact Form**: Client-side validation, interest categorization, submission state handling, and direct communication channels.
+- **Editorial Insights Explorer**: Categorized filterable viewpoints (Growth, Academy, Infra) with detailed reading view.
 
-## Local preview
+## Development
 
-From the project root, run:
+Run the development server on port 3000:
 
 ```bash
-python3 -m http.server 8000
+npm run dev
 ```
 
-Then open:
+Build for production:
 
-- http://localhost:8000/
-
-## Notes
-
-- The implementation follows the core DIGO color system and editorial tone from the brief.
-- The interface includes a Vietnamese/English language toggle.
-- The site is intentionally lightweight and static so it can be adapted into a production marketing or Next.js site later.
-
+```bash
+npm run build
+```

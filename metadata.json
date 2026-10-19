@@ -1,0 +1,8 @@
+{
+  "name": "DIGO EduTech",
+  "description": "DIGO connects practical education, growth execution, and data infrastructure to turn knowledge into measurable action.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
