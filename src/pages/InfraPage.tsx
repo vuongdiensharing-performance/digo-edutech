@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { PageId } from '../types';
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
 
 interface InfraPageProps {
   onNavigate: (page: PageId) => void;
@@ -8,10 +9,15 @@ interface InfraPageProps {
 
 export const InfraPage: React.FC<InfraPageProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
 
   return (
-    <main>
-      <section className="page-hero section-shell">
+    <main ref={mainRef}>
+      <section className="page-hero section-shell reveal-on-scroll">
         <div className="container narrow">
           <p className="section-kicker">DIGO Infra &amp; Trust</p>
           <h1>
@@ -45,7 +51,7 @@ export const InfraPage: React.FC<InfraPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell">
+      <section className="section-shell reveal-on-scroll">
         <div className="container split-layout">
           <div>
             <p className="section-kicker">
@@ -85,7 +91,7 @@ export const InfraPage: React.FC<InfraPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell section-alt">
+      <section className="section-shell section-alt reveal-on-scroll">
         <div className="container">
           <div className="section-head narrow">
             <p className="section-kicker">{t('Hệ thống kiến trúc', 'Architecture system')}</p>
@@ -98,7 +104,7 @@ export const InfraPage: React.FC<InfraPageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="card-grid three-up">
-            <article className="info-card accent-dark">
+            <article className="info-card accent-dark reveal-on-scroll reveal-delay-1">
               <div>
                 <span className="card-tag">Ingestion</span>
                 <h3 style={{ marginTop: '16px' }}>First-Party Data</h3>
@@ -111,7 +117,7 @@ export const InfraPage: React.FC<InfraPageProps> = ({ onNavigate }) => {
               </div>
             </article>
 
-            <article className="info-card accent-red">
+            <article className="info-card accent-red reveal-on-scroll reveal-delay-2">
               <div>
                 <span className="card-tag">Pipeline</span>
                 <h3 style={{ marginTop: '16px' }}>Conversions API</h3>
@@ -124,7 +130,7 @@ export const InfraPage: React.FC<InfraPageProps> = ({ onNavigate }) => {
               </div>
             </article>
 
-            <article className="info-card accent-gold">
+            <article className="info-card accent-gold reveal-on-scroll reveal-delay-3">
               <div>
                 <span className="card-tag">Intelligence</span>
                 <h3 style={{ marginTop: '16px' }}>Automated Agents</h3>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { PageId } from '../types';
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
 
 interface EcosystemPageProps {
   onNavigate: (page: PageId) => void;
@@ -8,10 +9,15 @@ interface EcosystemPageProps {
 
 export const EcosystemPage: React.FC<EcosystemPageProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
 
   return (
-    <main>
-      <section className="page-hero section-shell">
+    <main ref={mainRef}>
+      <section className="page-hero section-shell reveal-on-scroll">
         <div className="container narrow center text-center">
           <p className="section-kicker">{t('Hệ sinh thái', 'Ecosystem')}</p>
           <h1>
@@ -29,10 +35,10 @@ export const EcosystemPage: React.FC<EcosystemPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell">
+      <section className="section-shell reveal-on-scroll">
         <div className="container">
           <div className="card-grid three-up">
-            <article className="info-card accent-red">
+            <article className="info-card accent-red reveal-on-scroll reveal-delay-1">
               <div>
                 <span className="card-tag">Academy</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -57,7 +63,7 @@ export const EcosystemPage: React.FC<EcosystemPageProps> = ({ onNavigate }) => {
               </button>
             </article>
 
-            <article className="info-card accent-dark">
+            <article className="info-card accent-dark reveal-on-scroll reveal-delay-2">
               <div>
                 <span className="card-tag">Growth</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -82,7 +88,7 @@ export const EcosystemPage: React.FC<EcosystemPageProps> = ({ onNavigate }) => {
               </button>
             </article>
 
-            <article className="info-card accent-gold">
+            <article className="info-card accent-gold reveal-on-scroll reveal-delay-3">
               <div>
                 <span className="card-tag">Infra &amp; Trust</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -110,7 +116,7 @@ export const EcosystemPage: React.FC<EcosystemPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell section-alt">
+      <section className="section-shell section-alt reveal-on-scroll">
         <div className="container split-layout">
           <div>
             <p className="section-kicker">
@@ -151,7 +157,7 @@ export const EcosystemPage: React.FC<EcosystemPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Direct Contact CTA */}
-      <section className="cta-band section-shell">
+      <section className="cta-band section-shell reveal-on-scroll">
         <div className="container cta-band-inner">
           <div>
             <p className="section-kicker">{t('Hợp tác hệ sinh thái', 'Ecosystem collaboration')}</p>

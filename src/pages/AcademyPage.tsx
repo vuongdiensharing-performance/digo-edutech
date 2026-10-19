@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { PageId } from '../types';
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
 
 interface AcademyPageProps {
   onNavigate: (page: PageId) => void;
@@ -8,10 +9,15 @@ interface AcademyPageProps {
 
 export const AcademyPage: React.FC<AcademyPageProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
 
   return (
-    <main>
-      <section className="page-hero section-shell">
+    <main ref={mainRef}>
+      <section className="page-hero section-shell reveal-on-scroll">
         <div className="container narrow">
           <p className="section-kicker">DIGO Academy</p>
           <h1>
@@ -45,10 +51,10 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell">
+      <section className="section-shell reveal-on-scroll">
         <div className="container">
           <div className="card-grid three-up">
-            <article className="info-card accent-red">
+            <article className="info-card accent-red reveal-on-scroll reveal-delay-1">
               <div>
                 <span className="card-tag">IELTS</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -73,7 +79,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onNavigate }) => {
               </button>
             </article>
 
-            <article className="info-card accent-dark">
+            <article className="info-card accent-dark reveal-on-scroll reveal-delay-2">
               <div>
                 <span className="card-tag">DaVinci Resolve</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -98,7 +104,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onNavigate }) => {
               </button>
             </article>
 
-            <article className="info-card accent-gold">
+            <article className="info-card accent-gold reveal-on-scroll reveal-delay-3">
               <div>
                 <span className="card-tag">Marketing &amp; Performance Ads</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -126,7 +132,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell section-alt">
+      <section className="section-shell section-alt reveal-on-scroll">
         <div className="container split-layout">
           <div>
             <p className="section-kicker">

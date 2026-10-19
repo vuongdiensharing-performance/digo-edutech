@@ -78,10 +78,18 @@ const ARTICLES: Article[] = [
   }
 ];
 
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
+
 export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
   const [selectedTag, setSelectedTag] = useState<string>('All');
   const [activeArticleId, setActiveArticleId] = useState<string | null>(null);
+
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
 
   const filteredArticles = selectedTag === 'All' 
     ? ARTICLES 
@@ -90,8 +98,8 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
   const activeArticle = ARTICLES.find(a => a.id === activeArticleId);
 
   return (
-    <main>
-      <section className="page-hero section-shell">
+    <main ref={mainRef}>
+      <section className="page-hero section-shell reveal-on-scroll">
         <div className="container narrow text-center center">
           <p className="section-kicker">{t('Tri thức', 'Insights')}</p>
           <h1>
@@ -110,7 +118,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Filter Tabs */}
-      <section style={{ padding: '0 0 32px 0' }}>
+      <section style={{ padding: '0 0 32px 0' }} className="reveal-on-scroll">
         <div className="container text-center" style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
           {['All', 'Growth', 'Academy', 'Infra'].map((tag) => (
             <button
@@ -131,7 +139,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
 
       {/* Article Reader Modal or Expander */}
       {activeArticle && (
-        <section className="section-shell section-alt" style={{ padding: '40px 0' }}>
+        <section className="section-shell section-alt reveal-on-scroll" style={{ padding: '40px 0' }}>
           <div className="container narrow">
             <div className="info-card" style={{ padding: '36px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
@@ -172,11 +180,11 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
       )}
 
       {/* Articles Grid */}
-      <section className="section-shell">
+      <section className="section-shell reveal-on-scroll">
         <div className="container">
           <div className="card-grid three-up">
-            {filteredArticles.map((article) => (
-              <article key={article.id} className="news-card">
+            {filteredArticles.map((article, idx) => (
+              <article key={article.id} className={`news-card reveal-on-scroll reveal-delay-${(idx % 3) + 1}`}>
                 <span className="card-tag">{article.tag}</span>
                 <h3 style={{ marginTop: '10px' }}>
                   {t(article.titleVi, article.titleEn)}

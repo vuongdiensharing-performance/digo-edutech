@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { PageId } from '../types';
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
 
 interface GrowthPageProps {
   onNavigate: (page: PageId) => void;
@@ -8,10 +9,15 @@ interface GrowthPageProps {
 
 export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
 
   return (
-    <main>
-      <section className="page-hero section-shell">
+    <main ref={mainRef}>
+      <section className="page-hero section-shell reveal-on-scroll">
         <div className="container narrow">
           <p className="section-kicker">DIGO Growth</p>
           <h1>
@@ -45,7 +51,7 @@ export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell">
+      <section className="section-shell reveal-on-scroll">
         <div className="container split-layout">
           <div>
             <p className="section-kicker">
@@ -85,7 +91,7 @@ export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="section-shell section-alt">
+      <section className="section-shell section-alt reveal-on-scroll">
         <div className="container">
           <div className="section-head narrow">
             <p className="section-kicker">{t('Phương pháp luận', 'Methodology')}</p>
@@ -99,7 +105,7 @@ export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="process-grid">
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-1">
               <span className="step-index">STEP 1</span>
               <h3>{t('Chẩn đoán', 'Diagnose')}</h3>
               <p>
@@ -109,7 +115,7 @@ export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
                 )}
               </p>
             </div>
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-2">
               <span className="step-index">STEP 2</span>
               <h3>{t('Lập kế hoạch', 'Plan')}</h3>
               <p>
@@ -119,7 +125,7 @@ export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
                 )}
               </p>
             </div>
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-3">
               <span className="step-index">STEP 3</span>
               <h3>{t('Thử nghiệm', 'Test')}</h3>
               <p>
@@ -129,7 +135,7 @@ export const GrowthPage: React.FC<GrowthPageProps> = ({ onNavigate }) => {
                 )}
               </p>
             </div>
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-4">
               <span className="step-index">STEP 4</span>
               <h3>{t('Cải tiến', 'Improve')}</h3>
               <p>

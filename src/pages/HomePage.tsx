@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { PageId } from '../types';
+import { FAQSection } from '../components/FAQSection';
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
@@ -8,11 +10,16 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
 
   return (
-    <main>
+    <main ref={mainRef}>
       {/* Hero Section */}
-      <section className="hero section-shell">
+      <section className="hero section-shell reveal-on-scroll">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">DIGO EduTech</p>
@@ -92,7 +99,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Story Section */}
-      <section className="story section-shell section-alt">
+      <section className="story section-shell section-alt reveal-on-scroll">
         <div className="container narrow">
           <p className="section-kicker">
             {t('Góc nhìn DIGO', 'The DIGO point of view')}
@@ -113,7 +120,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Pillars Section */}
-      <section className="pillars section-shell">
+      <section className="pillars section-shell reveal-on-scroll">
         <div className="container">
           <div className="section-head">
             <p className="section-kicker">
@@ -128,7 +135,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="card-grid three-up">
-            <article className="info-card accent-red">
+            <article className="info-card accent-red reveal-on-scroll reveal-delay-1">
               <div>
                 <span className="card-tag">Academy</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -153,7 +160,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </button>
             </article>
 
-            <article className="info-card accent-dark">
+            <article className="info-card accent-dark reveal-on-scroll reveal-delay-2">
               <div>
                 <span className="card-tag">Growth</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -178,7 +185,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </button>
             </article>
 
-            <article className="info-card accent-gold">
+            <article className="info-card accent-gold reveal-on-scroll reveal-delay-3">
               <div>
                 <span className="card-tag">Infra &amp; Trust</span>
                 <h3 style={{ marginTop: '16px' }}>
@@ -207,7 +214,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Process Section */}
-      <section className="process section-shell section-alt">
+      <section className="process section-shell section-alt reveal-on-scroll">
         <div className="container">
           <div className="section-head narrow">
             <p className="section-kicker">
@@ -222,7 +229,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="process-grid">
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-1">
               <span className="step-index">01</span>
               <h3>{t('Hiểu', 'Learn')}</h3>
               <p>
@@ -232,7 +239,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 )}
               </p>
             </div>
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-2">
               <span className="step-index">02</span>
               <h3>{t('Xây dựng', 'Build')}</h3>
               <p>
@@ -242,7 +249,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 )}
               </p>
             </div>
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-3">
               <span className="step-index">03</span>
               <h3>{t('Đo lường', 'Measure')}</h3>
               <p>
@@ -252,7 +259,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 )}
               </p>
             </div>
-            <div className="process-step">
+            <div className="process-step reveal-on-scroll reveal-delay-4">
               <span className="step-index">04</span>
               <h3>{t('Cải thiện', 'Improve')}</h3>
               <p>
@@ -267,7 +274,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Evidence Section */}
-      <section className="evidence section-shell">
+      <section className="evidence section-shell reveal-on-scroll">
         <div className="container split-layout">
           <div>
             <p className="section-kicker">
@@ -318,7 +325,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Insights Section */}
-      <section className="insights section-shell section-alt">
+      <section className="insights section-shell section-alt reveal-on-scroll">
         <div className="container">
           <div className="section-head">
             <p className="section-kicker">
@@ -333,7 +340,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="card-grid three-up">
-            <article className="news-card">
+            <article className="news-card reveal-on-scroll reveal-delay-1">
               <span className="card-tag">Growth</span>
               <h3>Measurement-first creative testing</h3>
               <p>
@@ -350,7 +357,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 {t('Đọc bài viết →', 'Read insight →')}
               </button>
             </article>
-            <article className="news-card">
+            <article className="news-card reveal-on-scroll reveal-delay-2">
               <span className="card-tag">Academy</span>
               <h3>Build skills that transfer to real work</h3>
               <p>
@@ -367,7 +374,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 {t('Đọc bài viết →', 'Read insight →')}
               </button>
             </article>
-            <article className="news-card">
+            <article className="news-card reveal-on-scroll reveal-delay-3">
               <span className="card-tag">Infra</span>
               <h3>Why server-side data architecture matters</h3>
               <p>
@@ -389,7 +396,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Team Section */}
-      <section className="team section-shell">
+      <section className="team section-shell reveal-on-scroll">
         <div className="container split-layout align-center">
           <div className="team-portrait">
             <div className="portrait-card">
@@ -431,8 +438,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection />
+
       {/* CTA Band */}
-      <section className="cta-band section-shell">
+      <section className="cta-band section-shell reveal-on-scroll">
         <div className="container cta-band-inner">
           <div>
             <p className="section-kicker">

@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useScrollRevealGroup } from '../hooks/useScrollReveal';
 
 export const ContactPage: React.FC = () => {
   const { t } = useLanguage();
+  const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+    triggerOnce: true,
+  });
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,8 +46,8 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <main>
-      <section className="page-hero section-shell">
+    <main ref={mainRef}>
+      <section className="page-hero section-shell reveal-on-scroll">
         <div className="container narrow">
           <p className="section-kicker">{t('Liên hệ', 'Contact')}</p>
           <h1>
@@ -58,7 +65,7 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="section-shell" style={{ paddingTop: '10px' }}>
+      <section className="section-shell reveal-on-scroll" style={{ paddingTop: '10px' }}>
         <div className="container" style={{ maxWidth: '820px' }}>
           {submitted ? (
             <div className="evidence-panel" style={{ textAlign: 'center', padding: '48px 24px' }}>
@@ -232,7 +239,7 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Direct Contact Channels */}
-      <section className="section-shell section-alt">
+      <section className="section-shell section-alt reveal-on-scroll">
         <div className="container narrow text-center">
           <p className="section-kicker">{t('Kênh liên hệ trực tiếp', 'Direct contact channels')}</p>
           <h2>{t('Luôn sẵn sàng trao đổi', 'Direct access to the team')}</h2>
