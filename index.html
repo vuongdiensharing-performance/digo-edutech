@@ -3,17 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DIGO EduTech</title>
+    <title>DIGO EduTech – Practical Education, Growth & Data Infrastructure</title>
     <meta
       name="description"
-      content="DIGO connects practical education, growth execution, and data infrastructure to turn knowledge into measurable action."
+      content="DIGO connects practical education (Academy), performance marketing (Growth), and server-side data & AI infrastructure (Infra) for measurable outcomes."
     />
-    <meta property="og:title" content="DIGO EduTech" />
+    <meta property="og:title" content="DIGO EduTech – Practical Education, Growth & Data Infrastructure" />
     <meta
       property="og:description"
-      content="DIGO connects practical education, growth execution, and data infrastructure to turn knowledge into measurable action."
+      content="DIGO connects practical education (Academy), performance marketing (Growth), and server-side data & AI infrastructure (Infra) for measurable outcomes."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DIGO EduTech" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DIGO EduTech – Practical Education, Growth & Data Infrastructure" />
+    <meta
+      name="twitter:description"
+      content="DIGO connects practical education (Academy), performance marketing (Growth), and server-side data & AI infrastructure (Infra) for measurable outcomes."
+    />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,6 +29,18 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('digo-theme');
+          var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#070707' : '#ffffff');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body data-lang="vi">
     <div id="root"></div>

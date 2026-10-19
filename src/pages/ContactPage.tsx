@@ -138,12 +138,21 @@ export const ContactPage: React.FC = () => {
                   style={{
                     width: '100%',
                     marginTop: '8px',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    background: 'rgba(255,255,255,0.03)',
+                    borderRadius: '9999px',
+                    padding: '14px 22px',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    background: 'rgba(255,255,255,0.06)',
                     color: '#fff',
                     outline: 'none',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--brand-red)';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(244, 0, 9, 0.3)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 />
               </div>
@@ -162,12 +171,21 @@ export const ContactPage: React.FC = () => {
                   style={{
                     width: '100%',
                     marginTop: '8px',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    background: 'rgba(255,255,255,0.03)',
+                    borderRadius: '9999px',
+                    padding: '14px 22px',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    background: 'rgba(255,255,255,0.06)',
                     color: '#fff',
                     outline: 'none',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--brand-red)';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(244, 0, 9, 0.3)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 />
               </div>
@@ -183,12 +201,21 @@ export const ContactPage: React.FC = () => {
                   style={{
                     width: '100%',
                     marginTop: '8px',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: '9999px',
+                    padding: '14px 22px',
+                    border: '1px solid rgba(255,255,255,0.18)',
                     background: '#151414',
                     color: '#fff',
                     outline: 'none',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--brand-red)';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(244, 0, 9, 0.3)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   <option value="Business & Growth">
@@ -219,13 +246,22 @@ export const ContactPage: React.FC = () => {
                   style={{
                     width: '100%',
                     marginTop: '8px',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    background: 'rgba(255,255,255,0.03)',
+                    borderRadius: '20px',
+                    padding: '16px 20px',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    background: 'rgba(255,255,255,0.06)',
                     color: '#fff',
                     resize: 'vertical',
                     outline: 'none',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--brand-red)';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(244, 0, 9, 0.3)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 ></textarea>
               </div>

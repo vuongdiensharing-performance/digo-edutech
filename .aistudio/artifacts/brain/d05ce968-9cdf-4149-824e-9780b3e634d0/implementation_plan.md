@@ -1,87 +1,71 @@
-# Scroll Reveal Animations & Collapsible FAQ Accordion for DIGO EduTech
+# DIGO EduTech Repository Governance, Security & Environment Standardization
 
-Implement high-performance IntersectionObserver-driven scroll animations (subtle opacity fade-in with a gentle upward slide) across sections and cards, alongside a clean, accessible single-expand FAQ accordion on the HomePage addressing key questions across all three DIGO pillars: Academy, Growth, and Infra & Trust.
+Establish the complete DevSecOps and Brand Governance baseline for the **DIGO EduTech Ecosystem** by adding standardized English documentation and configuration templates for release history, engineering contribution standards, Zero-Trust security policy, Git exclusion rules, and local Vite environment variables.
+
+## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> **Confirmed User Decisions:**
-> - **FAQ Scope**: Covers all three core pillars — Academy, Growth, and Infra & Trust — with bilingual (VI/EN) questions and answers.
-> - **Accordion Interaction**: Single item open at a time with smooth expand/collapse transition, rotating chevron indicator, and accessible keyboard support.
-> - **Scroll Animation Style**: Subtle fade-in with gentle upward slide (`opacity: 0 -> 1`, `transform: translateY(18px) -> translateY(0)`) using `IntersectionObserver`, respecting user `prefers-reduced-motion` settings.
+> All five governance and environment specification documents provided in the prompt will be added verbatim to the project root, with cross-links added in the project documentation so contributors and automated workflows can immediately locate them.
 
----
+- **Exact Verbatim Governance Standards**: Preserve the exact terminology, version history (`[Unreleased]` and `[1.0.0] - 2026-10-15`), Brand & UI Governance rules (`#F7F5F0`, `#0F0E0E`, `#D91B24` / `#F40009`, `#C88A32`, Plus Jakarta Sans & Be Vietnam Pro), and Zero-Trust NDA enforcement clauses across all repository documents.
+- **Cross-Referenced Ecosystem Documentation**: Update the root documentation so the Contributing, Security, and Environment sections link directly to the new governance artifacts.
 
 ## 1. Overview & Core Concept
 
-- **What It Delivers**:
-  1. A reusable, performant React hook or scroll-reveal component (`useIntersectionObserver` / `ScrollReveal`) applying smooth CSS-driven fade-and-rise transitions to section wrappers and card grids without external heavy libraries.
-  2. A dedicated, responsive **FAQ Section Component** on the HomePage between the Team/Evidence sections and CTA band, styled in harmony with DIGO EduTech's typographic hierarchy and dark/light accents.
-- **Target Audience**: Prospective learners, enterprise founders, and growth marketing teams seeking clarity on DIGO's pedagogical model, performance attribution methods, and data infrastructure governance.
-- **Core Value**: Elevates the sensory polish of the application while addressing key customer objections and onboarding questions.
-
----
+- **What It Does**: Equips the DIGO EduTech repository with enterprise-grade DevSecOps governance, semantic release tracking, Zero-Trust NDA policies, strict secret exclusion rules, and standardized environment variable templates for CAPI, CRM, and LMS integrations.
+- **Target Audience / Persona**: Internal DIGO engineers, B2B growth architects, academic product managers, and automated development tools working across the Academy, Growth, Infra & Trust, and Insights pillars.
+- **Key Value**: Prevents secret leakage, enforces strict Vietnamese typographic and copywriting guardrails (*"Tối ưu CPQL"*, *"Đối soát 1:1"*, *"Trang đích <1.2s"*), and standardizes onboarding across local development environments.
 
 ## 2. User Experience & Visual Design
 
-- **User Flows**:
-  - **Scroll Reveal**: As the user scrolls through HomePage and sub-pages, sections and info cards smoothly glide up into view with a 400ms ease-out curve. Once revealed, elements stay active to prevent distracting re-trigger flashes.
-  - **FAQ Interaction**: Users can browse questions filtered or grouped by pillar (or clean continuous list). Clicking a question smoothly expands the answer with an accordion height transition and toggles a chevron indicator. Clicking another question collapses the open one automatically.
-- **Visual Identity & Theme**:
-  - **Color Tokens**: Adheres strictly to the established design system (`--bg: #f7f5f0`, `--surface: #ffffff`, `--text: #0f0e0e`, `--brand-red: #d91b24`, `--brand-gold: #c88a32`).
-  - **Typography**: Display titles in `Plus Jakarta Sans`, body and answers in `Be Vietnam Pro`, and question index metadata in `JetBrains Mono`.
-  - **Accessibility**: ARIA attributes (`aria-expanded`, `aria-controls`, `role="region"`), keyboard Tab navigation, and `Enter`/`Space` activation.
-
----
+- **Developer & Contributor Onboarding Flow**:
+  1. Engineers cloning the repository copy the standardized environment template to their local configuration without risking secret commits thanks to strict Zero-Trust exclusion rules.
+  2. Before submitting changes, contributors verify their UI components and copy against the Engineering Standards & Contributing Guidelines (Bento UX/UI radii, approved hex palette, and Trunk-based branching).
+  3. Security audits and B2B reconciliation workflows follow the Zero-Trust Security Policy and NDA reporting chain directly to C-Level leadership.
+- **Visual Identity & Governance Alignment**:
+  - *Color Palette Enforcement*: Clay White (`#F7F5F0`), Basalt Black (`#0F0E0E`), Empire Red / Primary CTA (`#D91B24` / `#F40009`), and Amber Gold (`#C88A32`).
+  - *Typography Hierarchy*: Plus Jakarta Sans for energetic display headings and Be Vietnam Pro for high-legibility Vietnamese body text.
+  - *Component Architecture*: Bento UX/UI cards (`24px - 32px` radius) and Pill-shape interactive CTAs (`9999px` radius) with Fluid Spring Effervescence motion.
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: Native IntersectionObserver vs. Framer Motion**:
-  - *Chosen Approach*: Lightweight custom React hook + pure CSS classes (`.reveal-on-scroll`, `.is-revealed`).
-  - *Why*: Zero additional bundle overhead, 60fps compositor performance without hydration lag, full compatibility with mobile devices and `prefers-reduced-motion`.
-- **Decision 2: FAQ Single-Expand vs. Multi-Expand**:
-  - *Chosen Approach*: Single active item state (`activeId: string | null`) with smooth toggle.
-  - *Why*: Maintains clean visual hierarchy and prevents excessive page height expansion on mobile devices.
-- **Decision 3: Bilingual Data Structure**:
-  - *Chosen Approach*: Integrated Vietnamese and English Q&A records that respond dynamically to the existing `LanguageContext` switcher.
+- **Decision 1: Standardized English Governance with Preserved Vietnamese Domain Terms**
+  - *Chosen Approach*: Maintain the documents in international standard English (Keep a Changelog, Semantic Versioning, Conventional Commits) while explicitly preserving DIGO's mandatory Vietnamese performance terminology (*"Đối soát 1:1"*, *"Tối ưu CPQL"*, *"Trang đích <1.2s"*).
+  - *Why*: Ensures compatibility with standard developer tooling and CI/CD pipelines while preventing copywriting drift in the Vietnamese B2B2C market.
+  - *Alternatives Considered*: Translating the domain terms into generic English was rejected because DIGO's brand doctrine strictly prohibits non-standard phrasing.
+- **Decision 2: Zero-Trust Environment & Secret Isolation**
+  - *Chosen Approach*: Explicitly ignore all local environment overrides and security config files while whitelisting only the sanitized environment template containing Vite-prefixed keys for Meta/TikTok CAPI, CRM Webhooks, and Academy LMS streaming.
+  - *Why*: Protects B2B partner CAPI tokens and lead reconciliation webhooks from accidental exposure in version control.
 
----
+## 4. Technical Architecture & Data Strategy *(Technical Reference)*
 
-## 4. Technical Architecture & Component Mapping
+- **Architecture & Governance Diagram**:
 
 ```
-┌────────────────────────────────────────────────────────┐
-│                      App.tsx                           │
-│        (LanguageProvider & View Routing)               │
-└───────────────────────────┬────────────────────────────┘
-                            │
-            ┌───────────────┴───────────────┐
-            │                               │
-            ▼                               ▼
-┌───────────────────────┐       ┌───────────────────────┐
-│     Header.tsx        │       │      HomePage.tsx     │
-└───────────────────────┘       └───────────┬───────────┘
-                                            │
-        ┌───────────────────────────────────┼───────────────────────────────────┐
-        ▼                                   ▼                                   ▼
-┌───────────────────┐             ┌───────────────────┐               ┌───────────────────┐
-│  ScrollReveal     │             │    FAQSection     │               │   Existing Cards  │
-│  (Custom Hook &   │             │   (Accordion UI   │               │   & Signal Panel  │
-│   Intersection)   │             │    & Pillar Q&As) │               │   (Fades on view) │
-└───────────────────┘             └───────────────────┘               └───────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    DIGO EDUTECH REPOSITORY GOVERNANCE                   │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+        ┌────────────────────────────┼────────────────────────────┐
+        ▼                            ▼                            ▼
+┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────┐
+│  ENGINEERING & BRAND │  │ ZERO-TRUST SECURITY  │  │ ENVIRONMENT & BUILD  │
+│      GOVERNANCE      │  │    & LEGAL POLICY    │  │     CONFIGURATION    │
+├──────────────────────┤  ├──────────────────────┤  ├──────────────────────┤
+│ • Contribution Rules │  │ • Zero-Trust NDA     │  │ • Git Secret Filter  │
+│   - Color & Font DNA │  │   - B2B CAPI Metrics │  │   - Ignore .env.*    │
+│   - Copy Guardrails  │  │   - Academic Assets  │  │   - Allow Template   │
+│   - Trunk Branching  │  │   - PII Masking      │  │                      │
+│   - Strict TS Rules  │  │                      │  │ • Vite Env Template  │
+│                      │  │ • Proprietary License│  │   - App Config       │
+│ • Semantic Changelog │  │   - C-Level Approval │  │   - CAPI / Pixels    │
+│   - [Unreleased]     │  │   - Direct Reporting │  │   - CRM Lead Sync    │
+│   - [1.0.0] Release  │  │                      │  │   - Academy Stream   │
+└──────────────────────┘  └──────────────────────┘  └──────────────────────┘
 ```
 
-### Component & State Mapping
-
-1. **`src/hooks/useScrollReveal.ts` (or Reveal Wrapper)**:
-   - Attaches `IntersectionObserver` with `threshold: 0.1` and `rootMargin: '0px 0px -40px 0px'`.
-   - Adds `.is-revealed` class when element enters viewport.
-   - Automatically unobserves once revealed for performance.
-2. **`src/components/FAQSection.tsx`**:
-   - Houses 6 curated Q&As addressing Academy (IELTS, DaVinci, Ads), Growth (CPA measurement, testing cycles), and Infra & Trust (Server-side tracking, CAPI, AI agents).
-   - State: `activeId: string | null`.
-   - Bilingual support via `useLanguage()` context.
-3. **`src/index.css` updates**:
-   - CSS transitions for `.reveal-on-scroll` (`opacity 0 -> 1`, `transform translateY(20px) -> 0`).
-   - Accordion item styling (`border-bottom`, smooth height transition, hover states).
-4. **`src/pages/HomePage.tsx` & sub-pages**:
-   - Integration of FAQ section.
-   - Attachment of scroll reveal classes or wrappers to section containers and card grids.
+- **Data Model & Configuration Domains**:
+  - **Application Runtime**: Base URL (`http://localhost:3000`) and environment mode (`development`).
+  - **Infra & Trust (Server-side CAPI)**: Meta Pixel ID, Meta CAPI Token, and TikTok Pixel ID for 1:1 reconciliation.
+  - **Growth (CRM & Lead Sync)**: CRM Webhook endpoint and API key for automated B2B/B2C lead routing.
+  - **Academy (LMS Delivery)**: Video streaming token for protected course playback.

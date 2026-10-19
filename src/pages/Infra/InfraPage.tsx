@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { PageId } from '../types';
-import { useScrollRevealGroup } from '../hooks/useScrollReveal';
+import { useLanguage } from '../../context/LanguageContext';
+import { PageId } from '../../types';
+import { useScrollRevealGroup } from '../../hooks/useScrollReveal';
 
 interface InfraPageProps {
   onNavigate: (page: PageId) => void;

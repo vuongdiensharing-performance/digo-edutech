@@ -1,20 +1,92 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { PageId } from '../types';
-import { FAQSection } from '../components/FAQSection';
+import { FAQSection, buildFAQJsonLd } from '../components/FAQSection';
+import { PartnerTicker } from '../components/PartnerTicker';
+import { SocialProofSlider, SocialProofItem } from '../components/SocialProofSlider';
 import { useScrollRevealGroup } from '../hooks/useScrollReveal';
+
+const HOME_CASE_STUDIES: SocialProofItem[] = [
+  {
+    id: 'cs-fmcg',
+    tagVi: 'Case Study · Chuỗi Bán Lẻ FMCG',
+    tagEn: 'Case Study · National FMCG Retail',
+    metricBadge: '–31.8% CPA · +2.4x ROAS',
+    quoteVi:
+      'Sau khi tái cấu trúc hệ thống Server-side Tracking và áp dụng khung thử nghiệm Creative có kỷ luật từ DIGO, chúng tôi cắt giảm 31.8% chi phí chuyển đổi chỉ sau 8 tuần mà vẫn mở rộng quy mô ngân sách.',
+    quoteEn:
+      'After rebuilding our server-side tracking and adopting DIGO’s disciplined creative testing framework, we cut acquisition cost by 31.8% in 8 weeks while scaling spend.',
+    authorName: 'Lê Quang Minh',
+    authorRoleVi: 'Giám đốc Tăng trưởng (CMO)',
+    authorRoleEn: 'Chief Marketing Officer',
+    organization: 'NovaConsumer Group',
+    avatarInitials: 'QM',
+    accentVariant: 'red',
+  },
+  {
+    id: 'cs-edtech',
+    tagVi: 'Case Study · Nền Tảng EdTech & SaaS',
+    tagEn: 'Case Study · EdTech & B2B SaaS',
+    metricBadge: '+148% Qualified Pipeline',
+    quoteVi:
+      'DIGO không chỉ tư vấn lý thuyết. Họ trực tiếp cùng đội ngũ In-house xây dựng Data Warehouse, chuẩn hóa phễu đo lường đa điểm chạm và đào tạo team vận hành độc lập.',
+    quoteEn:
+      'DIGO didn’t just hand over slides. They embedded with our in-house team to build our attribution warehouse, unify multi-touch measurement, and train our operators.',
+    authorName: 'Phạm Thanh Thảo',
+    authorRoleVi: 'Phó Chủ tịch Vận hành (VP of Growth)',
+    authorRoleEn: 'VP of Growth & Operations',
+    organization: 'TalentBridge Asia',
+    avatarInitials: 'TT',
+    accentVariant: 'dark',
+  },
+  {
+    id: 'cs-ecommerce',
+    tagVi: 'Case Study · Thương Mại Điện Tử D2C',
+    tagEn: 'Case Study · D2C E-Commerce Brand',
+    metricBadge: '+64% LTV/CAC Ratio',
+    quoteVi:
+      'Bằng cách kết nối dữ liệu CRM với tự động hóa AI Agent của DIGO Infra, tỷ lệ mua lặp lại tăng vọt và mọi quyết định phân bổ ngân sách đều dựa trên biên lợi nhuận thực.',
+    quoteEn:
+      'By connecting CRM cohorts with DIGO Infra automation, repeat purchase rates surged and every budget allocation decision is now anchored in real contribution margin.',
+    authorName: 'Đặng Hoàng Nam',
+    authorRoleVi: 'Nhà sáng lập & Điều hành (CEO)',
+    authorRoleEn: 'Founder & Managing Director',
+    organization: 'VibeCraft Studios',
+    avatarInitials: 'HN',
+    accentVariant: 'gold',
+  },
+];
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const mainRef = useScrollRevealGroup<HTMLElement>('.reveal-on-scroll', {
     threshold: 0.1,
     rootMargin: '0px 0px -40px 0px',
     triggerOnce: true,
   });
+
+  useEffect(() => {
+    const scriptId = 'digo-homepage-faq-jsonld';
+    let scriptEl = document.getElementById(scriptId) as HTMLScriptElement | null;
+    if (!scriptEl) {
+      scriptEl = document.createElement('script');
+      scriptEl.id = scriptId;
+      scriptEl.type = 'application/ld+json';
+      document.head.appendChild(scriptEl);
+    }
+    scriptEl.textContent = JSON.stringify(buildFAQJsonLd(lang));
+
+    return () => {
+      const existing = document.getElementById(scriptId);
+      if (existing) {
+        existing.remove();
+      }
+    };
+  }, [lang]);
 
   return (
     <main ref={mainRef}>
@@ -97,6 +169,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </section>
+
+      {/* Infinite Partner Logo Ticker */}
+      <PartnerTicker />
 
       {/* Story Section */}
       <section className="story section-shell section-alt reveal-on-scroll">
@@ -324,6 +399,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
+      {/* Enterprise & Agency Case Studies Slider */}
+      <SocialProofSlider
+        variant="casestudy"
+        kickerVi="CASE STUDY & TÁC ĐỘNG ĐO LƯỜNG"
+        kickerEn="VERIFIED AGENCY & GROWTH CASE STUDIES"
+        titleVi="Hệ thống tăng trưởng chứng minh bằng kết quả kinh doanh thực tế."
+        titleEn="Growth systems proven through audited business outcomes."
+        subtitleVi="Các dự án triển khai hạ tầng dữ liệu, tối ưu chuyển đổi và huấn luyện đội ngũ In-house tiêu biểu."
+        subtitleEn="Selected engagements across data infrastructure, conversion optimization, and embedded team training."
+        items={HOME_CASE_STUDIES}
+      />
+
       {/* Insights Section */}
       <section className="insights section-shell section-alt reveal-on-scroll">
         <div className="container">
@@ -352,7 +439,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <button
                 type="button"
                 className="card-link-btn"
-                onClick={() => onNavigate('insights')}
+                onClick={() => {
+                  window.location.hash = 'insights/creative-testing';
+                }}
               >
                 {t('Đọc bài viết →', 'Read insight →')}
               </button>
@@ -369,7 +458,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <button
                 type="button"
                 className="card-link-btn"
-                onClick={() => onNavigate('insights')}
+                onClick={() => {
+                  window.location.hash = 'insights/skill-acquisition';
+                }}
               >
                 {t('Đọc bài viết →', 'Read insight →')}
               </button>
@@ -386,7 +477,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <button
                 type="button"
                 className="card-link-btn"
-                onClick={() => onNavigate('insights')}
+                onClick={() => {
+                  window.location.hash = 'insights/data-architecture';
+                }}
               >
                 {t('Đọc bài viết →', 'Read insight →')}
               </button>
@@ -438,8 +531,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <FAQSection />
+      {/* FAQ Section with JSON-LD Structured Data */}
+      <FAQSection includeJsonLd />
 
       {/* CTA Band */}
       <section className="cta-band section-shell reveal-on-scroll">

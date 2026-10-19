@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { PageId } from './types';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { EcosystemPage } from './pages/EcosystemPage';
-import { AcademyPage } from './pages/AcademyPage';
-import { GrowthPage } from './pages/GrowthPage';
-import { InfraPage } from './pages/InfraPage';
-import { InsightsPage } from './pages/InsightsPage';
+import { AcademyPage } from './pages/Academy';
+import { GrowthPage } from './pages/Growth';
+import { InfraPage } from './pages/Infra';
+import { InsightsPage } from './pages/Insights';
 import { ContactPage } from './pages/ContactPage';
 import { LegalPage } from './pages/LegalPage';
 
+import { SodaEffervescence } from './components/SodaEffervescence';
+import { LeadMagnetBand } from './components/LeadMagnetBand';
+
 export const App: React.FC = () => {
   const getPageFromHash = (): PageId => {
-    const hash = window.location.hash.replace('#', '').toLowerCase();
+    const rawHash = window.location.hash.replace('#', '').toLowerCase();
+    if (rawHash.startsWith('insights/')) {
+      return 'insights';
+    }
     const validPages: PageId[] = [
       'home',
       'ecosystem',
@@ -26,17 +33,27 @@ export const App: React.FC = () => {
       'privacy',
       'terms',
     ];
-    if (validPages.includes(hash as PageId)) {
-      return hash as PageId;
+    if (validPages.includes(rawHash as PageId)) {
+      return rawHash as PageId;
     }
     return 'home';
   };
 
+  const getArticleIdFromHash = (): string | null => {
+    const rawHash = window.location.hash.replace('#', '');
+    if (rawHash.startsWith('insights/')) {
+      return rawHash.replace('insights/', '').trim() || null;
+    }
+    return null;
+  };
+
   const [currentPage, setCurrentPage] = useState<PageId>(getPageFromHash);
+  const [initialArticleId, setInitialArticleId] = useState<string | null>(getArticleIdFromHash);
 
   useEffect(() => {
     const handleHashChange = () => {
       setCurrentPage(getPageFromHash());
+      setInitialArticleId(getArticleIdFromHash());
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -46,6 +63,7 @@ export const App: React.FC = () => {
 
   const handleNavigate = (page: PageId) => {
     setCurrentPage(page);
+    setInitialArticleId(null);
     window.location.hash = page === 'home' ? '' : page;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -61,7 +79,12 @@ export const App: React.FC = () => {
       case 'infra':
         return <InfraPage onNavigate={handleNavigate} />;
       case 'insights':
-        return <InsightsPage onNavigate={handleNavigate} />;
+        return (
+          <InsightsPage
+            onNavigate={handleNavigate}
+            initialArticleId={initialArticleId}
+          />
+        );
       case 'contact':
         return <ContactPage />;
       case 'privacy':
@@ -75,13 +98,17 @@ export const App: React.FC = () => {
   };
 
   return (
-    <LanguageProvider>
-      <div className="app-shell">
-        <Header currentPage={currentPage} onNavigate={handleNavigate} />
-        {renderPage()}
-        <Footer onNavigate={handleNavigate} />
-      </div>
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <div className="app-shell">
+          <SodaEffervescence />
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          {renderPage()}
+          <LeadMagnetBand />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 };
 

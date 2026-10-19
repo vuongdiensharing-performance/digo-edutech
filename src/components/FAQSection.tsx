@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 export interface FAQItem {
@@ -10,7 +11,7 @@ export interface FAQItem {
   answerEn: string;
 }
 
-const FAQ_ITEMS: FAQItem[] = [
+export const FAQ_ITEMS: FAQItem[] = [
   {
     id: 'academy-model',
     pillar: 'Academy',
@@ -73,8 +74,126 @@ const FAQ_ITEMS: FAQItem[] = [
   },
 ];
 
-export const FAQSection: React.FC = () => {
-  const { t } = useLanguage();
+export const buildFAQJsonLd = (lang: 'vi' | 'en') => {
+  const canonicalUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${window.location.pathname}`
+      : 'https://digo.edu.vn/';
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${canonicalUrl}#faq`,
+    name:
+      lang === 'vi'
+        ? 'Những câu hỏi thường gặp về DIGO EduTech (Academy, Growth & Infra)'
+        : 'Common Questions About DIGO EduTech (Academy, Growth & Infra)',
+    description:
+      lang === 'vi'
+        ? 'Giải đáp chi tiết về hệ sinh thái 3 trụ cột của DIGO EduTech: Đào tạo thực chiến (Academy), Thực thi tăng trưởng (Growth) và Hạ tầng dữ liệu & AI (Infra & Trust).'
+        : 'Detailed answers covering DIGO EduTech’s three operational pillars: Practical Education (Academy), Growth Execution (Growth), and Server-Side Data & AI Infrastructure (Infra & Trust).',
+    inLanguage: lang === 'vi' ? 'vi-VN' : 'en-US',
+    about: [
+      {
+        '@type': 'EducationalOrganization',
+        name: 'DIGO Academy',
+        description:
+          lang === 'vi'
+            ? 'Đào tạo năng lực thực chiến: IELTS, DaVinci Resolve và Performance Ads.'
+            : 'Practical capability building across IELTS fluency, DaVinci Resolve, and Performance Ads.',
+      },
+      {
+        '@type': 'Service',
+        name: 'DIGO Growth',
+        serviceType: 'Performance Marketing & Conversion Optimization',
+        description:
+          lang === 'vi'
+            ? 'Tối ưu hóa tỷ lệ chuyển đổi (CPA/CAC) qua chu kỳ thử nghiệm khép kín Diagnose → Plan → Test → Measure → Improve.'
+            : 'Closed-loop acquisition and conversion optimization grounded in verified data.',
+      },
+      {
+        '@type': 'Service',
+        name: 'DIGO Infra & Trust',
+        serviceType: 'Server-Side Tracking, Conversions API (CAPI) & AI Automation',
+        description:
+          lang === 'vi'
+            ? 'Hạ tầng đo lường dữ liệu Server-side, Conversions API (CAPI) và tự động hóa giám sát bằng AI Agents.'
+            : 'First-party server-side event architecture, Conversions API (CAPI), and AI anomaly governance.',
+      },
+    ],
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      '@type': 'Question',
+      '@id': `${canonicalUrl}#faq-${item.id}`,
+      name: lang === 'vi' ? item.questionVi : item.questionEn,
+      about: {
+        '@type': 'Thing',
+        name:
+          item.pillar === 'Academy'
+            ? 'DIGO Academy'
+            : item.pillar === 'Growth'
+            ? 'DIGO Growth'
+            : 'DIGO Infra & Trust',
+      },
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: lang === 'vi' ? item.answerVi : item.answerEn,
+      },
+    })),
+  };
+};
+
+// Fluid "Effervescence" Spring Physics presets
+const listContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.075,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+const itemRevealVariants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    scale: 0.965,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 350,
+      damping: 25,
+      mass: 0.85,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    scale: 0.96,
+    transition: {
+      duration: 0.18,
+    },
+  },
+};
+
+const panelContentSpring = {
+  type: 'spring' as const,
+  stiffness: 340,
+  damping: 28,
+  mass: 0.8,
+};
+
+interface FAQSectionProps {
+  includeJsonLd?: boolean;
+}
+
+export const FAQSection: React.FC<FAQSectionProps> = ({ includeJsonLd = false }) => {
+  const { lang, t } = useLanguage();
   const [activeId, setActiveId] = useState<string | null>('academy-model');
   const [filterPillar, setFilterPillar] = useState<'All' | 'Academy' | 'Growth' | 'Infra'>('All');
 
@@ -82,24 +201,44 @@ export const FAQSection: React.FC = () => {
     setActiveId((prev) => (prev === id ? null : id));
   };
 
-  const filteredItems = filterPillar === 'All'
-    ? FAQ_ITEMS
-    : FAQ_ITEMS.filter((item) => item.pillar === filterPillar);
+  const filteredItems = useMemo(
+    () =>
+      filterPillar === 'All'
+        ? FAQ_ITEMS
+        : FAQ_ITEMS.filter((item) => item.pillar === filterPillar),
+    [filterPillar]
+  );
+
+  const faqJsonLdString = useMemo(
+    () => JSON.stringify(buildFAQJsonLd(lang)),
+    [lang]
+  );
 
   return (
-    <section className="faq-section section-shell section-alt reveal-on-scroll">
+    <section
+      id="faq"
+      className="faq-section section-shell section-alt reveal-on-scroll"
+      aria-labelledby="faq-heading"
+    >
+      {includeJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: faqJsonLdString }}
+        />
+      )}
+
       <div className="container narrow">
-        <div className="section-head text-center center" style={{ marginBottom: '32px' }}>
+        <div className="section-head text-center center faq-head-spacing">
           <p className="section-kicker">
             {t('Giải đáp thắc mắc', 'Frequently Asked Questions')}
           </p>
-          <h2>
+          <h2 id="faq-heading">
             {t(
               'Những câu hỏi thường gặp về DIGO EduTech',
               'Common Questions About DIGO EduTech'
             )}
           </h2>
-          <p className="lead" style={{ maxWidth: '640px', margin: '0 auto' }}>
+          <p className="lead faq-lead-copy">
             {t(
               'Tìm hiểu chi tiết về cách ba trụ cột Academy, Growth và Infra & Trust vận hành để đem lại kết quả đo lường thực chất.',
               'Explore how Academy, Growth, and Infra & Trust work together to generate measurable outcomes.'
@@ -112,13 +251,6 @@ export const FAQSection: React.FC = () => {
           className="faq-filter-bar"
           role="tablist"
           aria-label={t('Lọc câu hỏi theo trụ cột', 'Filter questions by pillar')}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '8px',
-            marginBottom: '36px',
-          }}
         >
           {(
             [
@@ -127,159 +259,164 @@ export const FAQSection: React.FC = () => {
               { key: 'Growth', labelVi: 'Growth', labelEn: 'Growth' },
               { key: 'Infra', labelVi: 'Infra & Trust', labelEn: 'Infra & Trust' },
             ] as const
-          ).map((tab) => (
-            <button
-              key={tab.key}
-              type="button"
-              role="tab"
-              aria-selected={filterPillar === tab.key}
-              className={`lang-btn ${filterPillar === tab.key ? 'active' : ''}`}
-              style={{
-                padding: '8px 16px',
-                border: '1px solid var(--border)',
-                borderRadius: '999px',
-                fontSize: '0.84rem',
-              }}
-              onClick={() => {
-                setFilterPillar(tab.key);
-                // Keep active item open if still present in filtered list
-                const matching = tab.key === 'All' ? FAQ_ITEMS : FAQ_ITEMS.filter(i => i.pillar === tab.key);
-                if (matching.length > 0 && !matching.some(i => i.id === activeId)) {
-                  setActiveId(matching[0].id);
-                }
-              }}
-            >
-              {t(tab.labelVi, tab.labelEn)}
-            </button>
-          ))}
-        </div>
-
-        {/* Accordion Container */}
-        <div className="faq-accordion" role="presentation">
-          {filteredItems.map((item, index) => {
-            const isOpen = activeId === item.id;
-            const itemNumber = (index + 1).toString().padStart(2, '0');
-
+          ).map((tab) => {
+            const isTabActive = filterPillar === tab.key;
             return (
-              <div
-                key={item.id}
-                className={`faq-item ${isOpen ? 'is-open' : ''}`}
-                style={{
-                  background: 'var(--surface)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 'var(--radius-md)',
-                  marginBottom: '14px',
-                  boxShadow: isOpen ? '0 10px 30px rgba(15, 14, 14, 0.06)' : 'none',
-                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                  overflow: 'hidden',
+              <motion.button
+                key={tab.key}
+                type="button"
+                role="tab"
+                aria-selected={isTabActive}
+                className={`lang-btn faq-filter-pill ${isTabActive ? 'active' : ''}`}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+                onClick={() => {
+                  setFilterPillar(tab.key);
+                  const matching =
+                    tab.key === 'All'
+                      ? FAQ_ITEMS
+                      : FAQ_ITEMS.filter((i) => i.pillar === tab.key);
+                  if (matching.length > 0 && !matching.some((i) => i.id === activeId)) {
+                    setActiveId(matching[0].id);
+                  }
                 }}
               >
-                <button
-                  type="button"
-                  id={`faq-btn-${item.id}`}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-panel-${item.id}`}
-                  className="faq-trigger"
-                  onClick={() => toggleAccordion(item.id)}
-                  style={{
-                    width: '100%',
-                    padding: '22px 24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '16px',
-                    background: 'transparent',
-                    border: 'none',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    color: 'var(--text)',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px' }}>
-                    <span
-                      style={{
-                        fontFamily: 'JetBrains Mono, monospace',
-                        fontSize: '0.82rem',
-                        color: 'var(--brand-red)',
-                        fontWeight: 700,
-                      }}
-                    >
-                      {itemNumber}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: '1.05rem',
-                        fontWeight: 700,
-                        fontFamily: 'Plus Jakarta Sans, Segoe UI, sans-serif',
-                        lineHeight: 1.35,
-                      }}
-                    >
-                      {t(item.questionVi, item.questionEn)}
-                    </span>
-                  </div>
-
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      background: isOpen ? 'var(--brand-red)' : 'rgba(15, 14, 14, 0.05)',
-                      color: isOpen ? '#ffffff' : 'var(--text)',
-                      flexShrink: 0,
-                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.25s ease, background-color 0.2s ease, color 0.2s ease',
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </span>
-                </button>
-
-                <div
-                  id={`faq-panel-${item.id}`}
-                  role="region"
-                  aria-labelledby={`faq-btn-${item.id}`}
-                  style={{
-                    maxHeight: isOpen ? '400px' : '0px',
-                    opacity: isOpen ? 1 : 0,
-                    overflow: 'hidden',
-                    transition: 'max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
-                  }}
-                >
-                  <div
-                    style={{
-                      padding: '0 24px 22px 50px',
-                      color: 'var(--text-soft)',
-                      fontSize: '0.98rem',
-                      lineHeight: 1.7,
-                      borderTop: '1px solid rgba(15, 14, 14, 0.05)',
-                      marginTop: '4px',
-                      paddingTop: '16px',
-                    }}
-                  >
-                    <p style={{ margin: 0 }}>
-                      {t(item.answerVi, item.answerEn)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                {t(tab.labelVi, tab.labelEn)}
+              </motion.button>
             );
           })}
         </div>
+
+        {/* Accordion Container with Framer Motion Spring Effervescence */}
+        <motion.div
+          key={filterPillar}
+          className="faq-accordion"
+          role="presentation"
+          variants={listContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filteredItems.map((item, index) => {
+              const isOpen = activeId === item.id;
+              const itemNumber = (index + 1).toString().padStart(2, '0');
+              const pillarLabel =
+                item.pillar === 'Infra' ? 'Infra & Trust' : item.pillar;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  layout
+                  variants={itemRevealVariants}
+                  whileHover={{
+                    y: -3,
+                    scale: 1.008,
+                    transition: { type: 'spring', stiffness: 400, damping: 24 },
+                  }}
+                  className={`faq-item ${isOpen ? 'is-open' : ''}`}
+                >
+                  <button
+                    type="button"
+                    id={`faq-btn-${item.id}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${item.id}`}
+                    className="faq-trigger"
+                    onClick={() => toggleAccordion(item.id)}
+                  >
+                    <div className="faq-trigger-left">
+                      <span className="faq-item-number">{itemNumber}</span>
+                      <div className="faq-question-group">
+                        <span className="faq-pillar-badge">{pillarLabel}</span>
+                        <span className="faq-question-title">
+                          {t(item.questionVi, item.questionEn)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <motion.span
+                      aria-hidden="true"
+                      className={`faq-icon-orb ${isOpen ? 'is-open' : ''}`}
+                      animate={{
+                        rotate: isOpen ? 180 : 0,
+                        scale: isOpen ? 1.1 : 1,
+                      }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 420,
+                        damping: 20,
+                      }}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </motion.span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`faq-panel-${item.id}`}
+                        role="region"
+                        aria-labelledby={`faq-btn-${item.id}`}
+                        className="faq-panel-wrapper"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{
+                          height: 'auto',
+                          opacity: 1,
+                          transition: panelContentSpring,
+                        }}
+                        exit={{
+                          height: 0,
+                          opacity: 0,
+                          transition: {
+                            type: 'spring',
+                            stiffness: 380,
+                            damping: 32,
+                            mass: 0.7,
+                          },
+                        }}
+                      >
+                        <motion.div
+                          className="faq-panel-inner"
+                          initial={{ y: -10, opacity: 0, scale: 0.985 }}
+                          animate={{
+                            y: 0,
+                            opacity: 1,
+                            scale: 1,
+                            transition: {
+                              type: 'spring',
+                              stiffness: 360,
+                              damping: 24,
+                              delay: 0.03,
+                            },
+                          }}
+                          exit={{
+                            y: -6,
+                            opacity: 0,
+                            transition: { duration: 0.14 },
+                          }}
+                        >
+                          <p>{t(item.answerVi, item.answerEn)}</p>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

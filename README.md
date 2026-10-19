@@ -1,28 +1,90 @@
-# DIGO EduTech Web Application (React + TypeScript + Vite)
+# 📄 DIGO EduTech | Hệ Sinh Thái Công Nghệ Đào Tạo & Kiến Trúc Tăng Trưởng B2B2C
 
-A modern, responsive, bilingual React application built with TypeScript and Vite for **DIGO EduTech** ("Measure Ruthlessly. Build What You Teach. Scale Monopolies."), rewritten from the original static prototype.
+## • Tên dự án (Project Title)
 
-## Core Features
+**DIGO EduTech | Unified Platform (Academy · Growth · Infra & Trust · Insights)**
 
-- **Single Page Navigation & Route Sync**: Instant routing across Home, Ecosystem, Academy, Growth, Infra & Trust, Insights, Contact, and Legal (Privacy & Terms).
-- **Scroll Reveal Animations**: High-performance IntersectionObserver-driven subtle fade-in and upward slide for sections, info cards, and metrics with staggered delays and `prefers-reduced-motion` compliance.
-- **Collapsible FAQ Accordion**: Single-expand accordion with category filtering (All, Academy, Growth, Infra & Trust), smooth height transitions, rotating chevron indicators, and full ARIA accessibility.
-- **Full Bilingual Support (VI / EN)**: Interactive language toggle persisted in `localStorage` with instant UI translation across all pages, FAQ questions, cards, and metadata.
-- **Brand Aesthetic & Typography**: Strict fidelity to DIGO EduTech design constitution with Be Vietnam Pro, Plus Jakarta Sans, and JetBrains Mono typography, custom color variables (`--brand-red: #d91b24`, `--brand-gold: #c88a32`), and dark-panel accents.
-- **Dynamic Signal Panel**: Interactive signal graph representing the *Signal → Measure → Decide → Improve* loop.
-- **Interactive Contact Form**: Client-side validation, interest categorization, submission state handling, and direct communication channels.
-- **Editorial Insights Explorer**: Categorized filterable viewpoints (Growth, Academy, Infra) with detailed reading view.
+## • Giới thiệu/Tóm tắt (Description)
 
-## Development
+**Triết lý hành động:** *"Measure Ruthlessly. Build What You Teach. Scale Monopolies."*
 
-Run the development server on port 3000:
+Dự án thuộc hệ sinh thái công nghệ đào tạo & kiến trúc tăng trưởng B2B2C của **DIGO EduTech**. Nền tảng giải quyết đồng bộ 3 bài toán cốt lõi: **Đào tạo thực chiến dựa trên vòng lặp năng lực (Practice Loops)**, **Tối ưu CPQL & Trang đích <1.2s**, và **Hạ tầng Server-Side CAPI đối soát 1:1 từ Lead đến Doanh thu**, phục vụ trực tiếp cho cả 3 nhánh:
+- **DIGO Academy**: Đào tạo thực chiến IELTS, EdTech & Kỹ năng sáng tạo số.
+- **DIGO Growth**: Kiến trúc tăng trưởng hiệu suất, Tối ưu CPQL & Full-Funnel CRO.
+- **DIGO Infra & Trust**: Hạ tầng dữ liệu First-Party, Server-Side CAPI & Đối soát 1:1.
+
+## • Hình ảnh minh họa (Visuals)
+
+> **Yêu cầu UI:** Giao diện hiển thị tuân thủ nghiêm ngặt **Kiến trúc UX/UI Bento** (Thẻ bo góc lớn `24px - 32px`, nút bấm bo tròn tuyệt đối `9999px`) và bảng màu phong thủy **Hỏa - Thổ** của DIGO:
+> - **Trắng Đất Sét Ngà (`#F7F5F0`)**: Nền sáng chủ đạo (Light Surface)
+> - **Đen Đá Bazan (`#0F0E0E`)**: Nền tối & Typography độ tương phản cao
+> - **Đỏ Đế Chế (`#D91B24`)**: Bắt buộc cho các nút hành động chính (Primary CTA)
+> - **Vàng Hổ Phách (`#C88A32`)**: Nhấn mạnh chỉ số kiểm chứng, chứng thực & E-E-A-T
+
+## • Điều kiện tiên quyết (Prerequisites)
+
+Để chạy dự án này, môi trường phát triển cần đảm bảo:
+
+* Node.js (Phiên bản >= 18.x)
+* Trình quản lý gói: `npm` hoặc `bun`
+* Truy cập vào kho lưu trữ mã nguồn của DIGO và các biến môi trường (API Keys) liên quan.
+
+## • Cách cài đặt (Installation)
+
+Thực hiện các bước sau để thiết lập môi trường local:
+
+1. **Clone mã nguồn:**
+```bash
+git clone https://github.com/vuongdiensharing-performance/digo-edutech.git
+cd digo-edutech
+```
+
+2. **Cài đặt thư viện (Dependencies):**
+```bash
+npm install
+# hoặc dùng bun install
+```
+
+3. **Thiết lập môi trường:** Copy file `.env.example` thành `.env.local` và điền các thông số bảo mật theo chuẩn Zero-Trust của dự án.
+
+## • Cách sử dụng (Usage)
+
+Khởi chạy máy chủ phát triển (Development Server):
 
 ```bash
 npm run dev
 ```
 
-Build for production:
+Truy cập `http://localhost:3000` trên trình duyệt.
 
-```bash
-npm run build
-```
+* **Kiến trúc thư mục Component-Based (`src/pages/`):**
+  * `src/pages/Insights/` — Module **DIGO Insights / Blog Archive** (`InsightsPage.tsx`, `ArticleDetailPage.tsx`, `index.ts`, `README.md`)
+  * `src/pages/Academy/` — Module **DIGO Academy** (`AcademyPage.tsx`, `index.ts`, `README.md`)
+  * `src/pages/Growth/` — Module **DIGO Growth** (`GrowthPage.tsx`, `index.ts`, `README.md`)
+  * `src/pages/Infra/` — Module **DIGO Infra & Trust** (`InfraPage.tsx`, `index.ts`, `README.md`)
+  * `docs/README.template.md` — Bản mẫu README chuẩn Master Brand Guideline & Growth Doctrine để tái sử dụng cho các module mới.
+
+## • Khắc phục sự cố (Troubleshooting / FAQ)
+
+* **Lỗi 403 Forbidden trên trình duyệt:** Kiểm tra lại file cấu hình (`vite.config.ts`), đảm bảo đã cấp phép `allowedHosts` cho môi trường phát triển.
+* **Lỗi font chữ tiếng Việt:** Đảm bảo hệ thống đang gọi đúng font **Be Vietnam Pro** cho Body text và **Plus Jakarta Sans** cho Headings.
+* **Thất thoát dữ liệu đo lường:** Kiểm tra lại kết nối Hạ tầng CAPI & CRM để đảm bảo kiểm soát trọn vẹn từ Lead đến Doanh thu.
+
+## • Cách đóng góp (Contributing)
+
+Mọi đóng góp (Pull Request) đều phải trải qua quá trình kiểm duyệt khắt khe dựa trên **Brand Governance** và **Execution Guardrails** của DIGO (xem chi tiết tại [`CONTRIBUTING.md`](./CONTRIBUTING.md) và lịch sử phiên bản tại [`CHANGELOG.md`](./CHANGELOG.md)):
+
+1. **Màu sắc:** Phải sử dụng chuẩn xác 4 mã màu: Trắng Đất Sét Ngà (`#F7F5F0`), Đen Đá Bazan (`#0F0E0E`), Đỏ Đế Chế (`#D91B24` - Bắt buộc cho CTA), Vàng Hổ Phách (`#C88A32`).
+2. **Logo:** Không dùng hiệu ứng AI, gradient hay phát sáng. Luôn giữ trục ngang 0 độ, không đặt nghiêng.
+3. **Thông điệp (Copywriting):** Tuyệt đối không dùng các từ "Cam kết bùng nổ", "Giá tin nhắn siêu rẻ". Bắt buộc dùng thuật ngữ chuẩn: **"Tối ưu CPQL"**, **"Đối soát 1:1"**, **"Trang đích <1.2s"**.
+
+## • Giấy phép (License)
+
+Dự án áp dụng **CAM KẾT BẢO MẬT (NDA) - An Ninh Dữ Liệu Tuyệt Đối**. Mọi dữ liệu đối tác, mã nguồn và kiến trúc hệ thống được bảo vệ theo chuẩn Zero-Trust. Không được phép sao chép hay phân phối ra bên ngoài khi chưa có sự chấp thuận của Ban Lãnh Đạo DIGO EduTech. Xem chi tiết toàn văn pháp lý tại [`LICENSE.md`](./LICENSE.md) và chính sách bảo mật tại [`SECURITY.md`](./SECURITY.md).
+
+## • Thông tin liên lạc / Tác giả (Credits / Contact)
+
+Được định hướng và xây dựng bởi Đội ngũ Lãnh đạo DIGO EduTech:
+
+* **Nguyễn Hoàng Vương Điền (CEO / CMO):** Phụ trách Kiến trúc tăng trưởng & Hạ tầng công nghệ.
+* **Lê Thị Thanh Gô (CAO / CPO):** Phụ trách Chất lượng học thuật & Phương pháp sư phạm.
