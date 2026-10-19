@@ -1,4 +1,4 @@
-# 📄 BẢN MẪU README: MODULE DIGO ACADEMY
+# 📄 MODULE DIGO ACADEMY
 
 ## • Tên dự án (Project Title)
 
